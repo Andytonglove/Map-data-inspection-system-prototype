@@ -2,3 +2,4 @@
 位置1&类型2&描述3
 hello&type&world
 1&23&4
+DirectPosition2D[60.81911262798636, -75.98683671658358]&写错了&from lht

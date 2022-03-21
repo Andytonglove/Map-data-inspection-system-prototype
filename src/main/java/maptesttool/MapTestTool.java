@@ -28,7 +28,7 @@ public class MapTestTool {
     public final static JTextArea inputPositionArea = new JTextArea(); // 这里位置放到外面为了监听字符串改变
 
     public MapTestTool() {
-        JFrame jf = new JFrame("地图数据检查工具");
+        JFrame jf = new JFrame("地图数据检查系统原型");
         jf.setSize(860, 600);
         jf.setLocationRelativeTo(null);
         jf.setResizable(false);
@@ -69,10 +69,12 @@ public class MapTestTool {
         JMenu menu2 = new JMenu("错误标注");
         JMenu menu3 = new JMenu("错误查询");
         JMenu menu4 = new JMenu("帮助");
+        JMenu menu5 = new JMenu("用户"); // 用户相关
         menubar1.add(menu1);
         menubar1.add(menu2);
         menubar1.add(menu3);
         menubar1.add(menu4);
+        menubar1.add(menu5);
 
         // 建立子菜单项
         // 1.地图数据显示：可视化显示：地图（栅格/矢量）形式；文本显示：直接显示数据内容。
@@ -91,6 +93,9 @@ public class MapTestTool {
         final JMenuItem item12 = new JMenuItem("残忍再见", imageIcon_menu);
         final JMenuItem item13 = new JMenuItem("项目主页", imageIcon_menu);
         final JMenuItem item14 = new JMenuItem("关于项目", imageIcon_menu); // menu4：帮助
+        final JMenuItem item15 = new JMenuItem("用户登录", imageIcon_menu);
+        final JMenuItem item16 = new JMenuItem("用户管理", imageIcon_menu);
+        final JMenuItem item17 = new JMenuItem("用户操作记录", imageIcon_menu); // menu5：用户
 
         menu1.add(item1);
         menu1.addSeparator();
@@ -116,6 +121,11 @@ public class MapTestTool {
         menu4.add(item13);
         menu4.addSeparator();
         menu4.add(item14); // 4
+        menu5.add(item15);
+        menu5.addSeparator();
+        menu5.add(item16);
+        menu5.addSeparator();
+        menu5.add(item17); // 5
 
         // 一个行动提示文本框
         final JTextArea textArea = new JTextArea();
@@ -126,7 +136,7 @@ public class MapTestTool {
         textArea.setEditable(false);
         textArea.setForeground(Color.BLUE);
         textArea.setFont(new Font("楷体", Font.PLAIN, 16));
-        textArea.setText("欢迎使用地图数据质检工具！");
+        textArea.setText("欢迎使用地图数据质检系统原型！");
 
         // 下面是主体首页页面部分
 
@@ -692,6 +702,26 @@ public class MapTestTool {
             }
         });
 
+        // 15-17.用户相关登录、管理、操作记录
+        // TODO 这一块准备用web来处理，辅以sql
+        ActionListener listenUserListener = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == item15) {
+
+                }
+                if (e.getSource() == item16) {
+                    JOptionPane.showMessageDialog(null, "请在【地图查看】界面标识查询，点击查看坐标", "错误记录标识查询", JOptionPane.PLAIN_MESSAGE,
+                            imageIcon_menu);
+                }
+                if (e.getSource() == item17 || e.getSource() == item11) {
+
+                }
+            }
+        };
+        item15.addActionListener(listenUserListener);
+        item16.addActionListener(listenUserListener);
+        item17.addActionListener(listenUserListener);
+
         // 左下角文本提示框
         ActionListener listen = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -724,6 +754,12 @@ public class MapTestTool {
                     textArea.setText("即将访问本项目GitHub项目主页……\n");
                 if (e.getSource() == item14)
                     textArea.setText("即将访问本项目相关信息！\n");
+                if (e.getSource() == item15)
+                    textArea.setText("正在进行用户登录！\n");
+                if (e.getSource() == item16)
+                    textArea.setText("即将进行用户管理服务！\n");
+                if (e.getSource() == item17)
+                    textArea.setText("即将查看用户操作记录！\n");
 
             }
         };
@@ -741,6 +777,9 @@ public class MapTestTool {
         item12.addActionListener(listen);
         item13.addActionListener(listen);
         item14.addActionListener(listen);
+        item15.addActionListener(listen);
+        item16.addActionListener(listen);
+        item17.addActionListener(listen);
     }
 
     /*
