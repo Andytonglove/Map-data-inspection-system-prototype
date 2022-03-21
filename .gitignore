@@ -1,0 +1,11 @@
+# 忽略git文件夹
+.git/
+
+# 忽略jar包
+*.jar
+
+# 忽略target文件夹
+target/
+
+# 但不要忽略最终jar
+!maptesttool-maven.jar
