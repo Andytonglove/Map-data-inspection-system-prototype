@@ -98,6 +98,7 @@ public class GeoTiffLab {
         // JMapFrame.Tool.RESET);
         frame.enableToolBar(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
 
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);

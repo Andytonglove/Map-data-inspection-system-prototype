@@ -76,11 +76,13 @@ public class SelectionLab {
     private static final float LINE_WIDTH = 1.0f;
     private static final float POINT_SIZE = 10.0f;
 
-    private JMapFrame mapFrame;
+    public JMapFrame mapFrame;
     private SimpleFeatureSource featureSource;
 
     private String geometryAttributeName;
     private GeomType geometryType;
+
+    public static String selectPositionString; // 传地址字符串的成员
 
     /*
      * The application method
@@ -161,6 +163,7 @@ public class SelectionLab {
 
         // TODO 创建一个水平方向的分割面板
         // final JSplitPane hSplitPane = new JSplitPane();
+
     }
     // docs end display shapefile
 
@@ -174,6 +177,8 @@ public class SelectionLab {
     void selectFeatures(MapMouseEvent ev) {
 
         System.out.println("Mouse click at: " + ev.getWorldPos());
+        selectPositionString = ev.getWorldPos().toString();
+        MapTestTool.inputPositionArea.setText(SelectionLab.selectPositionString);
 
         /*
          * Construct a 5x5 pixel rectangle centred on the mouse click position

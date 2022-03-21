@@ -7,6 +7,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.*;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 // 下面是geotools依赖
 import org.geotools.data.FileDataStore;
@@ -23,6 +24,8 @@ import org.geotools.swing.data.JFileDataStoreChooser;
 public class MapTestTool {
     // int inputFlag = 0; // 输入上报区域的节流阀
     int[] cntRecord = { 0, 0 }; // 记录错误条序数，与记录总值
+    String selectString = "";
+    public final static JTextArea inputPositionArea = new JTextArea(); // 这里位置放到外面为了监听字符串改变
 
     public MapTestTool() {
         JFrame jf = new JFrame("地图数据检查工具");
@@ -123,6 +126,7 @@ public class MapTestTool {
         textArea.setEditable(false);
         textArea.setForeground(Color.BLUE);
         textArea.setFont(new Font("楷体", Font.PLAIN, 16));
+        textArea.setText("欢迎使用地图数据质检工具！");
 
         // 下面是主体首页页面部分
 
@@ -172,7 +176,7 @@ public class MapTestTool {
                         JOptionPane.YES_NO_CANCEL_OPTION,
                         JOptionPane.QUESTION_MESSAGE, null, fileType, fileType[0]);
 
-                // TODO 同一页面内部展示地图，重构包括tiff和shp
+                // TODO 同一页面内部展示地图，重构包括tiff和shp，可用JSplitPane
                 if (cho == 0) {
                     // 矢量地图文件：shp文件展示，利用geotools
 
@@ -234,7 +238,7 @@ public class MapTestTool {
         int deltaHr = 30;
         int heightBox = 75;
 
-        final JTextArea inputPositionArea = new JTextArea();
+        // final JTextArea inputPositionArea = new JTextArea(); // TODO 修改合理性
         p.add(inputPositionArea);
         inputPositionArea.setBounds(450 + widthR, heightR, 320, heightBox);
         inputPositionArea.setText("请在此处输入地图错误位置：");
@@ -459,6 +463,18 @@ public class MapTestTool {
                     System.out.println(commitContent);
                     // 保存到文件，之后可能考虑用JSON形式储存上报的错误，目前先用txt
                     MyWriteFileItems("Errors.txt", commitContent);
+
+                    // 完成后清空输入框
+                    try {
+                        TimeUnit.SECONDS.sleep(1); // 休眠1s
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                    JOptionPane.showMessageDialog(null, "保存成功！即将清空输入框", "保存成功", JOptionPane.PLAIN_MESSAGE,
+                            imageIcon_menu);
+                    inputPositionArea.setText("");
+                    inputTypeArea.setText("");
+                    inputDescriArea.setText("");
                 }
             }
         });
@@ -510,14 +526,24 @@ public class MapTestTool {
                     File file = openFileChooser.getSelectedFile();
                     String fileName = file.getName();
                     textAreaTopArea.setText("数据文件名：" + fileName);
+
+                    // 读取文本类型文件
                     try {
-                        Desktop.getDesktop().open(file); // 启动已在本机桌面上注册的关联应用程序，打开文件.
-                    } catch (Exception e2) {
-                        // 异常处理
-                        JOptionPane.showMessageDialog(null, "文件不合法，请检查您的文件！", "错误", JOptionPane.PLAIN_MESSAGE,
-                                imageIcon_menu);
-                        System.err.println(e2);
+                        ReadText tmrReadText = new ReadText(fileName);
+                        tmrReadText.setVisible(true);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                        // 如果无法打开则启动已在本机桌面上注册的关联应用程序，打开文件
+                        try {
+                            Desktop.getDesktop().open(file);
+                        } catch (Exception e2) {
+                            // 异常处理
+                            JOptionPane.showMessageDialog(null, "文件不合法，请检查您的文件！", "错误", JOptionPane.PLAIN_MESSAGE,
+                                    imageIcon_menu);
+                            System.err.println(e2);
+                        }
                     }
+
                 }
             }
         };
@@ -530,7 +556,10 @@ public class MapTestTool {
         ActionListener listenUploadListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == item5) {
-                    JOptionPane.showMessageDialog(null, "请通过在界面中标识选择，点击查看坐标进行输入上报", "错误标识上报", JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.showMessageDialog(null, "请通过在界面中标识选择，通过SELECT模式点击选择地址，\n"
+                            + "工具将会自动自动获取标识位置并填入；或者点击查看坐标进行输入上报。",
+                            "错误标识上报",
+                            JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
                     // DONE 利用geotools的SelectionLab示例，支持shp
                     SelectionLab me = new SelectionLab();
@@ -655,7 +684,7 @@ public class MapTestTool {
                         + "包括主要内容：\n"
                         + "1、地图数据显示：地图(栅格/矢量)可视化与文本显示；\n"
                         + "2、错误记录管理：位置标识、错误记录保存、错误记录查询。\n"
-                        + "软件版本：Version 0.1\n"
+                        + "软件版本：Version 1.0\n"
                         + "开发设计：关子安\n"
                         + "开发基于：Java GUI、GeoTools");
                 textArea6.setEditable(false);
