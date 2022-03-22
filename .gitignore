@@ -6,6 +6,3 @@
 
 # 忽略target文件夹
 target/
-
-# 但不要忽略最终jar
-!maptesttool-maven.jar
