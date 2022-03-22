@@ -186,7 +186,6 @@ public class MapTestTool {
                         JOptionPane.YES_NO_CANCEL_OPTION,
                         JOptionPane.QUESTION_MESSAGE, null, fileType, fileType[0]);
 
-                // TODO 同一页面内部展示地图，重构包括tiff和shp，可用JSplitPane
                 if (cho == 0) {
                     // 矢量地图文件：shp文件展示，利用geotools
 
@@ -248,7 +247,7 @@ public class MapTestTool {
         int deltaHr = 30;
         int heightBox = 75;
 
-        // final JTextArea inputPositionArea = new JTextArea(); // TODO 修改合理性
+        // final JTextArea inputPositionArea = new JTextArea(); // 可能需要修改合理性
         p.add(inputPositionArea);
         inputPositionArea.setBounds(450 + widthR, heightR, 320, heightBox);
         inputPositionArea.setText("请在此处输入地图错误位置：");
@@ -703,20 +702,35 @@ public class MapTestTool {
         });
 
         // 15-17.用户相关登录、管理、操作记录
-        // TODO 这一块准备用web来处理，辅以sql
+        // TODO 这一块本准备用web前端来处理，java后台，辅以sql
         ActionListener listenUserListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String openWebString = "";
                 if (e.getSource() == item15) {
                     JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户登录界面", "用户登录", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
+                    openWebString = dir + "\\src\\main\\web\\index.html";
                 }
                 if (e.getSource() == item16) {
                     JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户管理界面", "用户管理", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
+                    openWebString = dir + "\\src\\main\\web\\manage.html";
                 }
                 if (e.getSource() == item17) {
                     JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户操作记录界面", "用户操作记录", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
+                    openWebString = dir + "\\src\\main\\web\\history.html";
+                }
+
+                // 打开浏览器网页
+                try {
+                    File file = new File(openWebString);
+                    Desktop.getDesktop().open(file); // 用默认浏览器打开网页
+
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(null, "打开用户界面失败！", "失败", JOptionPane.PLAIN_MESSAGE,
+                            imageIcon_menu);
+                    e1.printStackTrace();
                 }
             }
         };
