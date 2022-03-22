@@ -14,8 +14,16 @@
 </head>
 
 <body>
-    <button>登录</button>
-    <button>注册</button>
+
+    <h3>地图数据质检系统-用户登录</h3>
+    <form action="pageContext.request.contextPath/servlet/UserServlet" method="post">
+        用户名:<input id="username" name="username"><br />
+        密 码:<input id="password" name="password">
+        <button type="submit">登录</button>
+        <button type="submit">注册</button>
+    </form>
+
+
 </body>
 
 </html>

@@ -709,17 +709,17 @@ public class MapTestTool {
                 if (e.getSource() == item15) {
                     JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户登录界面", "用户登录", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
-                    openWebString = dir + "\\src\\web\\index.html";
+                    openWebString = dir + "\\src\\main\\web\\index.html";
                 }
                 if (e.getSource() == item16) {
                     JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户管理界面", "用户管理", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
-                    openWebString = dir + "\\src\\web\\manage.html";
+                    openWebString = dir + "\\src\\main\\web\\manage.html";
                 }
                 if (e.getSource() == item17) {
                     JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户操作记录界面", "用户操作记录", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
-                    openWebString = dir + "\\src\\web\\history.html";
+                    openWebString = dir + "\\src\\main\\web\\history.html";
                 }
 
                 // 打开浏览器网页
