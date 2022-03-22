@@ -136,7 +136,7 @@ public class MapTestTool {
         textArea.setEditable(false);
         textArea.setForeground(Color.BLUE);
         textArea.setFont(new Font("楷体", Font.PLAIN, 16));
-        textArea.setText("欢迎使用地图数据质检系统原型！");
+        textArea.setText("欢迎使用地图数据质检系统！请登录用户！");
 
         // 下面是主体首页页面部分
 
@@ -709,17 +709,17 @@ public class MapTestTool {
                 if (e.getSource() == item15) {
                     JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户登录界面", "用户登录", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
-                    openWebString = dir + "\\src\\main\\web\\index.html";
+                    openWebString = dir + "\\src\\web\\index.html";
                 }
                 if (e.getSource() == item16) {
                     JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户管理界面", "用户管理", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
-                    openWebString = dir + "\\src\\main\\web\\manage.html";
+                    openWebString = dir + "\\src\\web\\manage.html";
                 }
                 if (e.getSource() == item17) {
                     JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户操作记录界面", "用户操作记录", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
-                    openWebString = dir + "\\src\\main\\web\\history.html";
+                    openWebString = dir + "\\src\\web\\history.html";
                 }
 
                 // 打开浏览器网页
@@ -728,7 +728,7 @@ public class MapTestTool {
                     Desktop.getDesktop().open(file); // 用默认浏览器打开网页
 
                 } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(null, "打开用户界面失败！", "失败", JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.showMessageDialog(null, "用户界面访问失败，请检查配置！", "访问失败", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
                     e1.printStackTrace();
                 }
