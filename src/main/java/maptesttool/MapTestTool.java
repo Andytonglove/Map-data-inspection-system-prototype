@@ -707,14 +707,16 @@ public class MapTestTool {
         ActionListener listenUserListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == item15) {
-
-                }
-                if (e.getSource() == item16) {
-                    JOptionPane.showMessageDialog(null, "请在【地图查看】界面标识查询，点击查看坐标", "错误记录标识查询", JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户登录界面", "用户登录", JOptionPane.PLAIN_MESSAGE,
                             imageIcon_menu);
                 }
-                if (e.getSource() == item17 || e.getSource() == item11) {
-
+                if (e.getSource() == item16) {
+                    JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户管理界面", "用户管理", JOptionPane.PLAIN_MESSAGE,
+                            imageIcon_menu);
+                }
+                if (e.getSource() == item17) {
+                    JOptionPane.showMessageDialog(null, "即将通过浏览器打开用户操作记录界面", "用户操作记录", JOptionPane.PLAIN_MESSAGE,
+                            imageIcon_menu);
                 }
             }
         };
