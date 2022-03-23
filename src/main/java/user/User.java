@@ -1,4 +1,4 @@
-package model;
+package user;
 
 // 用户类
 public class User {
