@@ -7,11 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户首页-地图数据质检系统</title>
 
-    <link rel="stylesheet" href="css/index.css" />
     <script src="js/jquery.min.js"></script>
     <script src="js/axios.min_v.0.25.0.js"></script>
     <script src="js/vue_v2.6.14.js"></script>
-    <script src="js/index.js"></script>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -24,57 +22,39 @@
 </head>
 
 <body>
-    <!-- 导航栏 -->
+
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">地图数据质检系统-用户首页</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <a class="navbar-brand" href="#">
+                    <img alt="Brand" src="img/inter.png" width="25">
+                </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
+                    <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">管理 </a></li>
+                    <li><a href="#">历史 </a></li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search">
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default">搜索</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            aria-expanded="false">用户管理 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="index.html">用户首页</a></li>
+                            <li><a href="manage.html">用户管理</a></li>
+                            <li><a href="history.html">用户操作记录</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">退出登录</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -82,14 +62,70 @@
         </div><!-- /.container-fluid -->
     </nav>
 
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+                        <h1>
+                            <strong>地图数据质检系统</strong> 欢迎用户！
+                        </h1>
+                        <div class="description">
+                            <p>
+                                这是地图数据质检系统的首页。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>用户登录</h3>
+                                <p>请在下方输入用户名*、密码*以及您的个人邮箱以完成登录：</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>用户管理</h3>
+                                <p>请在下方输入用户名*、密码*以及您的个人邮箱以完成登录：</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>用户操作记录查询</h3>
+                                <p>请在下方输入用户名*、密码*以及您的个人邮箱以完成登录：</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
 
 
+    <!-- 
     <form action="pageContext.request.contextPath/servlet/UserServlet" method="post">
         用户名:<input id="username" name="username"><br />
         密 码:<input id="password" name="password">
         <button type="submit">登录</button>
         <button type="submit">重置</button>
-    </form>
+    </form> -->
 
 </body>
 
