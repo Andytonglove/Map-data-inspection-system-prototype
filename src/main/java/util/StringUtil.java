@@ -3,7 +3,7 @@ package util;
 /**
  * 字符串工具类
  * 
- * @author Amos0602
+ * @author guan
  *
  */
 public class StringUtil {

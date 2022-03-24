@@ -3,7 +3,7 @@ package model;
 /**
  * 用户实体
  * 
- * @author Amos0602
+ * @author guan
  *
  */
 public class User {

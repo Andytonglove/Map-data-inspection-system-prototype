@@ -3,9 +3,10 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-/*
+/**
  * 数据库工具类
- * @author amos0602
+ * 
+ * @author guan
  */
 public class DbUtil {
 

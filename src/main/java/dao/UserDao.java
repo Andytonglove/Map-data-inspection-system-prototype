@@ -9,7 +9,7 @@ import model.User;
 /**
  * 用户Dao类
  * 
- * @author Amos0602
+ * @author guan
  *
  */
 public class UserDao {
