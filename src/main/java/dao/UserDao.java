@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import model.User;
 
@@ -30,23 +31,25 @@ public class UserDao {
         ResultSet rs = pstmt.executeQuery();
         if (rs.next()) {
             resultUser = new User();
-            resultUser.setId(rs.getString("id"));
+            resultUser.setId(rs.getInt("id"));
             resultUser.setUserName(rs.getString("userName"));
             resultUser.setUserPassWord(rs.getString("password"));
         }
         return resultUser;
     }
 
-    public User registe(Connection connection, User user) throws Exception {
+    public User register(Connection connection, User user) throws Exception {
         User resultUser = null;
-        String sql = "select * from user where username=? and password=?";
-        PreparedStatement pstmt = connection.prepareStatement(sql);
+        String sql = "INSERT INTO user VALUES (?, ?, ?);";
+        PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pstmt.setString(1, user.getUserName());
         pstmt.setString(2, user.getUserPassWord());
-        ResultSet rs = pstmt.executeQuery();
+        pstmt.setString(3, "5");
+        pstmt.executeUpdate();
+        ResultSet rs = pstmt.getGeneratedKeys();
         if (rs.next()) {
             resultUser = new User();
-            resultUser.setId(rs.getString("id"));
+            resultUser.setId(rs.getInt("id"));
             resultUser.setUserName(rs.getString("username"));
             resultUser.setUserPassWord(rs.getString("password"));
         }

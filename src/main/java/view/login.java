@@ -111,9 +111,34 @@ public class login extends JFrame {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // 关闭登录窗体
-                // new Register().addMan(); // 打开注册窗体
+                String userName = username.getText();
+                String passWord = new String(password.getPassword());
+                if (StringUtil.isEmpty(userName)) {
+                    JOptionPane.showMessageDialog(null, "用户名不能为空");
+                    return;
+                }
+                if (StringUtil.isEmpty(passWord)) {
+                    JOptionPane.showMessageDialog(null, "密码不能为空");
+                    return;
+                }
+                User user = new User(userName, passWord);
+                Connection connection = null;
+                DbUtil dbUtil = new DbUtil();
+                UserDao userDao = new UserDao();
+                try {
+                    connection = dbUtil.getConnection();
+                    User currentUser = userDao.register(connection, user);
+                    if (currentUser != null) {
+                        JOptionPane.showMessageDialog(null, "注册成功!接下来您可以登录了!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "注册失败!请您尝试重新注册!");
+                    }
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
+
         });
     }
 
