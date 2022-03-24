@@ -27,7 +27,6 @@ public class login extends JFrame {
     // Statement stam;
 
     public login() {
-        // 设置窗体的位置及大小
         frame.setSize(300, 200);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);

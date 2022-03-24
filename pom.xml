@@ -56,7 +56,13 @@
             <artifactId>gt-wms</artifactId>
             <version>${geotools.version}</version>
         </dependency>
-      </dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.28</version>
+        </dependency>
+  </dependencies>
+
   <repositories>
       <repository>
           <id>maven2-repository.dev.java.net</id>

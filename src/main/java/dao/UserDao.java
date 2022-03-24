@@ -23,7 +23,7 @@ public class UserDao {
      */
     public User login(Connection connection, User user) throws Exception {
         User resultUser = null;
-        String sql = "select * from t_user where userName=? and password=?";
+        String sql = "select * from user where userName=? and password=?";
         PreparedStatement pstmt = connection.prepareStatement(sql);
         pstmt.setString(1, user.getUserName());
         pstmt.setString(2, user.getUserPassWord());
