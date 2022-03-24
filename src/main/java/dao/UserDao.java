@@ -36,4 +36,20 @@ public class UserDao {
         }
         return resultUser;
     }
+
+    public User registe(Connection connection, User user) throws Exception {
+        User resultUser = null;
+        String sql = "select * from user where username=? and password=?";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setString(1, user.getUserName());
+        pstmt.setString(2, user.getUserPassWord());
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            resultUser = new User();
+            resultUser.setId(rs.getString("id"));
+            resultUser.setUserName(rs.getString("username"));
+            resultUser.setUserPassWord(rs.getString("password"));
+        }
+        return resultUser;
+    }
 }

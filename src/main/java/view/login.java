@@ -16,15 +16,12 @@ public class login extends JFrame {
 
     private JFrame frame = new JFrame("用户登录-地图数据质检系统");
     private JPanel panel = new JPanel();
-    private JLabel userLabel = new JLabel("用户名:"); // 创建UserJLabel
+    private JLabel userLabel = new JLabel("用户名:");
     private JTextField username = new JTextField(); // 获取登录名
-    private JLabel passLabel = new JLabel("密码:"); // 创建PassJLabel
+    private JLabel passLabel = new JLabel("密码:");
     private JPasswordField password = new JPasswordField(20); // 密码框隐藏
-    private JButton loginButton = new JButton("登录账户"); // 创建登录按钮
-    private JButton registerButton = new JButton("用户注册"); // 创建注册按钮
-
-    Connection conn;
-    // Statement stam;
+    private JButton loginButton = new JButton("登录账户");
+    private JButton registerButton = new JButton("用户注册");
 
     public login() {
         frame.setSize(300, 200);
@@ -101,7 +98,7 @@ public class login extends JFrame {
                     if (currentUser != null) {
                         JOptionPane.showMessageDialog(null, "登录成功!");
                     } else {
-                        JOptionPane.showMessageDialog(null, "用户名或密码错误!你可以选择先进行注册!");
+                        JOptionPane.showMessageDialog(null, "用户名或密码错误!您可以选择先进行注册!");
                     }
 
                 } catch (Exception e1) {

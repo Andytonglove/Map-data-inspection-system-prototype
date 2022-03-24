@@ -28,5 +28,5 @@ This is a Map data inspection system prototype(`地图数据质检系统原型`)
 
 ## Information
 
-> Using Java, developed in VSCode, built in Maven, by Guan, Doing.
+> Using Java, developed in VSCode, built in Maven-web, by Guan, Doing.
 > Github: https://github.com/Andytonglove/Map-data-inspection-system-prototype
