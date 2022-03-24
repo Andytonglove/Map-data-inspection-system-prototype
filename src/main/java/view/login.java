@@ -1,11 +1,16 @@
 package view;
 
 import javax.swing.*;
+
+import dao.UserDao;
+import model.User;
+import util.DbUtil;
+import util.StringUtil;
+
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-// import com.mysql.jdbc.Statement;
 
 public class login extends JFrame {
 
@@ -73,6 +78,39 @@ public class login extends JFrame {
         registerButton.setBounds(170, 110, 100, 25);
         panel.add(registerButton);
 
+        // 按钮-登录
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String userName = username.getText();
+                String passWord = new String(password.getPassword());
+                if (StringUtil.isEmpty(userName)) {
+                    JOptionPane.showMessageDialog(null, "用户名不能为空");
+                    return;
+                }
+                if (StringUtil.isEmpty(passWord)) {
+                    JOptionPane.showMessageDialog(null, "密码不能为空");
+                    return;
+                }
+                User user = new User(userName, passWord);
+                Connection connection = null;
+                DbUtil dbUtil = new DbUtil(); // 不是静态就得new出来
+                UserDao userDao = new UserDao();
+                try {
+                    connection = dbUtil.getConnection();
+                    User currentUser = userDao.login(connection, user);
+                    if (currentUser != null) {
+                        JOptionPane.showMessageDialog(null, "登录成功!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "用户名或密码错误!你可以选择先进行注册!");
+                    }
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
         // 按钮-注册
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -82,4 +120,5 @@ public class login extends JFrame {
             }
         });
     }
+
 }
