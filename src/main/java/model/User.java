@@ -7,9 +7,9 @@ package model;
  *
  */
 public class User {
-    private int id;
     private String userName;
     private String userPassWord;
+    private String id;
 
     public User() {
         super();
@@ -21,11 +21,11 @@ public class User {
         this.userPassWord = userPassWord;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

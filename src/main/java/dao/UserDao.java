@@ -30,7 +30,7 @@ public class UserDao {
         ResultSet rs = pstmt.executeQuery();
         if (rs.next()) {
             resultUser = new User();
-            resultUser.setId(rs.getInt("id"));
+            resultUser.setId(rs.getString("id"));
             resultUser.setUserName(rs.getString("userName"));
             resultUser.setUserPassWord(rs.getString("password"));
         }

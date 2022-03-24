@@ -10,7 +10,7 @@ import java.sql.DriverManager;
  */
 public class DbUtil {
 
-    private String dbUrl = "jdbc:mysql://localhost:3306/db_book?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8"; // 数据库连接地址
+    private String dbUrl = "jdbc:mysql://localhost:3306/map-data-inspections?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8"; // 数据库连接地址
     private String dbUserName = "root"; // 用户名
     private String dbPassWord = "root"; // 密码
     private String jdbcName = "com.mysql.cj.jdbc.Driver"; // 驱动名称
