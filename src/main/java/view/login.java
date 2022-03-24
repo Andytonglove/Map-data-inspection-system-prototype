@@ -1,9 +1,11 @@
-package user;
+package view;
 
 import javax.swing.*;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+// import com.mysql.jdbc.Statement;
 
 public class login extends JFrame {
 
@@ -15,6 +17,9 @@ public class login extends JFrame {
     private JPasswordField password = new JPasswordField(20); // 密码框隐藏
     private JButton loginButton = new JButton("登录账户"); // 创建登录按钮
     private JButton registerButton = new JButton("用户注册"); // 创建注册按钮
+
+    Connection conn;
+    // Statement stam;
 
     public login() {
         // 设置窗体的位置及大小
@@ -68,38 +73,12 @@ public class login extends JFrame {
         registerButton.setBounds(170, 110, 100, 25);
         panel.add(registerButton);
 
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == loginButton) {
-                    try {
-                        conn = jdbcUtil.getConnection();// 获取数据库连接
-                        stam = (Statement) conn.createStatement(); // 创建sql语句执行对象
-                        // 编写sql语句
-                        String sql = "select * from user where username='" + username.getText() + "'  and password='"
-                                + password.getPassword() + "'     ";
-                        // 执行sql语句
-                        ResultSet rs = stam.executeQuery(sql);
-                        if (rs.next()) {
-                            dispose(); // 关闭当前窗口
-                            JOptionPane.showMessageDialog(null, "用户登陆成功！", "登录",
-                                    JOptionPane.PLAIN_MESSAGE);
-                        }
-                    } catch (Exception e0) {
-                        e0.printStackTrace();
-                    } finally {
-                        jdbcUtil.result(conn, stam);
-                    }
-                }
-            }
-        });
-
         // 按钮-注册
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose(); // 关闭登录窗体
-                new Register().addMan(); // 打开注册窗体
+                // new Register().addMan(); // 打开注册窗体
             }
         });
     }

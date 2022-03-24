@@ -21,7 +21,6 @@ import org.geotools.styling.Style;
 import org.geotools.swing.JMapFrame;
 import org.geotools.swing.data.JFileDataStoreChooser;
 // 下面是用户类
-import user.*;
 
 public class MapTestTool {
     // int inputFlag = 0; // 输入上报区域的节流阀
@@ -708,7 +707,7 @@ public class MapTestTool {
         ActionListener listenUserListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == item15) {
-                    new login();
+
                 }
                 if (e.getSource() == item16) {
 
