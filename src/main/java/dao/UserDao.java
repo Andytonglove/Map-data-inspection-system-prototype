@@ -38,21 +38,21 @@ public class UserDao {
         return resultUser;
     }
 
-    public User register(Connection connection, User user) throws Exception {
-        User resultUser = null;
-        String sql = "INSERT INTO user VALUES (?, ?, ?);";
+    /**
+     * 注册账号
+     * 
+     * @param connection
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    public int register(Connection connection, User user) throws Exception {
+        String sql = "INSERT INTO user (username, password) VALUES (?, ?)";
         PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pstmt.setString(1, user.getUserName());
         pstmt.setString(2, user.getUserPassWord());
-        pstmt.setString(3, "5");
-        pstmt.executeUpdate();
-        ResultSet rs = pstmt.getGeneratedKeys();
-        if (rs.next()) {
-            resultUser = new User();
-            resultUser.setId(rs.getInt("id"));
-            resultUser.setUserName(rs.getString("username"));
-            resultUser.setUserPassWord(rs.getString("password"));
-        }
-        return resultUser;
+        int cnt = pstmt.executeUpdate();
+
+        return cnt;
     }
 }

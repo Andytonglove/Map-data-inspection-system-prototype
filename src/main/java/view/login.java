@@ -127,8 +127,8 @@ public class login extends JFrame {
                 UserDao userDao = new UserDao();
                 try {
                     connection = dbUtil.getConnection();
-                    User currentUser = userDao.register(connection, user);
-                    if (currentUser != null) {
+                    int cnt = userDao.register(connection, user);
+                    if (cnt > 0) {
                         JOptionPane.showMessageDialog(null, "注册成功!接下来您可以登录了!");
                     } else {
                         JOptionPane.showMessageDialog(null, "注册失败!请您尝试重新注册!");

@@ -1,7 +1,7 @@
 package util;
 
 /**
- * 字符串工具类
+ * 字符串判断工具类
  * 
  * @author guan
  *
