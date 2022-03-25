@@ -129,7 +129,9 @@ public class login extends JFrame {
                     connection = dbUtil.getConnection();
                     int cnt = userDao.register(connection, user);
                     if (cnt > 0) {
-                        JOptionPane.showMessageDialog(null, "注册成功!接下来您可以登录了!");
+                        JOptionPane.showMessageDialog(null, "注册成功!接下来您可以使用此账号登录了!");
+                    } else if (cnt < 0) {
+                        JOptionPane.showMessageDialog(null, "用户名重复!请您更换用户名重新注册!");
                     } else {
                         JOptionPane.showMessageDialog(null, "注册失败!请您尝试重新注册!");
                     }

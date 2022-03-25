@@ -1,6 +1,6 @@
 ## What's this
 
-This is a Map data inspection system prototype(`地图数据质检系统原型`). You can see pre-project in [MapTestTool](https://github.com/Andytonglove/MapTestTool) or [maptesttool-maven](https://github.com/Andytonglove/maptesttool-maven), and this project is built on that.
+This is a Java web×swing project: Map data inspection system prototype(`地图数据质检系统原型`). You can see pre-project in [MapTestTool](https://github.com/Andytonglove/MapTestTool) or [maptesttool-maven](https://github.com/Andytonglove/maptesttool-maven), and this project is built on that.
 
 ## Requirement
 
