@@ -104,6 +104,7 @@ public class login extends JFrame {
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
+                dispose(); // 销毁登录窗口
             }
         });
 

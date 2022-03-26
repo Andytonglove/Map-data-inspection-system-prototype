@@ -711,7 +711,7 @@ public class MapTestTool {
                     new login();
                 }
                 if (e.getSource() == item16) {
-
+                    new history();
                 }
                 if (e.getSource() == item17) {
 
