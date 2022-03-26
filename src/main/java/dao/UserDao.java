@@ -30,7 +30,7 @@ public class UserDao {
         pstmt.setString(2, user.getUserPassWord());
         ResultSet rs = pstmt.executeQuery();
 
-        // TODO 这里直接获取密码不太好，后续可以考虑MD5加密
+        // FIXME 这里直接获取密码不太好，后续可以考虑MD5加密
         if (rs.next()) {
             resultUser = new User();
             resultUser.setId(rs.getInt("id"));
@@ -76,6 +76,6 @@ public class UserDao {
      * @throws Exception
      */
     public void upload(Connection connection, User user, String errorString) throws Exception {
-
+        // TODO 上传数据
     }
 }

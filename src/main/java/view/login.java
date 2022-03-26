@@ -22,6 +22,7 @@ public class login extends JFrame {
     private JPasswordField password = new JPasswordField(20); // 密码框隐藏
     private JButton loginButton = new JButton("登录账户");
     private JButton registerButton = new JButton("用户注册");
+    public int loginFlag = 0; // 登录节流阀
 
     public login() {
         frame.setSize(300, 200);
@@ -97,6 +98,7 @@ public class login extends JFrame {
                     User currentUser = userDao.login(connection, user);
                     if (currentUser != null) {
                         JOptionPane.showMessageDialog(null, "登录成功!");
+                        loginFlag = 1;
                     } else {
                         JOptionPane.showMessageDialog(null, "用户名或密码错误!您可以选择先进行注册!");
                     }
