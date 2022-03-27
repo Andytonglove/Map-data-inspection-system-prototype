@@ -20,7 +20,7 @@ import org.geotools.styling.SLD;
 import org.geotools.styling.Style;
 import org.geotools.swing.JMapFrame;
 import org.geotools.swing.data.JFileDataStoreChooser;
-// 下面是登录
+// 下面是用户界面
 import view.*;
 
 public class MapTestTool {
@@ -714,10 +714,10 @@ public class MapTestTool {
                     }
                 }
                 if (e.getSource() == item16) {
-                    new history();
+                    new historyui();
                 }
                 if (e.getSource() == item17) {
-
+                    new historyui();
                 }
 
                 // String openWebString = dir + "\\src\\main\\web\\index.html";

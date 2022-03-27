@@ -28,7 +28,7 @@ public class history {
         this.id = id;
     }
 
-    public String tostring() {
+    public String historyToString() {
         String stringInfo = String.join(this.userName, "&", this.mapname, "&", this.position, "&", this.type, "&",
                 this.discription, "&", Integer.toString(this.id));
         return stringInfo;

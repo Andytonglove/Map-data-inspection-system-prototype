@@ -9,7 +9,8 @@ import dao.UserDao;
 import model.User;
 
 import java.sql.Connection;
-import java.util.concurrent.TimeUnit;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class loginui extends JFrame {
 
@@ -54,6 +55,7 @@ public class loginui extends JFrame {
         // this.setUndecorated(true);
         this.setIconImage(ig2Icon.getImage());
         this.setTitle("用户登录注册");
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         Dimension size = new Dimension(800, 400);
 
@@ -263,10 +265,14 @@ public class loginui extends JFrame {
             connection = dbUtil.getConnection();
             User currentUser = userDao.login(connection, user);
             if (currentUser != null) {
-                toaster.success("登录成功!将在三秒后关闭窗口~");
-                TimeUnit.SECONDS.sleep(3); // 休眠3s
-                dispose();
+                toaster.success("登录成功!登陆界面将在3s后关闭~");
                 loginFlag = 1;
+                // 延时3s关闭窗口
+                new Timer().schedule(new TimerTask() {
+                    public void run() {
+                        dispose();
+                    }
+                }, 3000);
             } else {
                 toaster.error("用户名或密码错误!如果您还没有注册,您需要先进行注册!");
             }
