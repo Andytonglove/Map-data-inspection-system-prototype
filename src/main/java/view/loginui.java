@@ -237,10 +237,14 @@ public class loginui extends JFrame {
         });
     }
 
+    /**
+     * 登录与注册事件，存储进数据库与读取
+     */
+
     private void loginEventHandler() {
         toaster.warn("正在登录!");
 
-        // 登录事件，自己重写的
+        // 登录事件，已重写
         String userName = usernameField.getText();
         String passWord = new String(passwordField.getPassword());
         if (StringUtil.isEmpty(userName)) {
@@ -273,7 +277,7 @@ public class loginui extends JFrame {
     }
 
     private void registerEventHandler() {
-        // 注册事件，自己重写的
+        // 注册事件，已重写
         String userName = usernameField.getText();
         String passWord = new String(passwordField.getPassword());
         if (StringUtil.isEmpty(userName)) {

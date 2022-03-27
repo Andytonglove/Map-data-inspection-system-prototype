@@ -22,4 +22,15 @@ public class StringUtil {
             return false;
         }
     }
+
+    // 判断上报字符串是否合法
+    public static boolean isEffectiveReport(String string) {
+        String info[] = string.split("&");
+        for (int i = 0; i < info.length; i++) {
+            if (info[i].isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -31,3 +31,7 @@ Map data inspection system prototype support you to login and it can record your
 
 > Using Java, developed in VSCode, built in Maven-web, by Guan, Doing.
 > Github: https://github.com/Andytonglove/Map-data-inspection-system-prototype
+
+## Referrence
+1. [GeoTools](https://github.com/geotools/geotools): Official GeoTools repository
+2. [LoginUI](https://github.com/ProductOfAmerica/LoginGUI): A modern login user interface, written using Java Swing.

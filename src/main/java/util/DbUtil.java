@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 
 /**
  * 数据库工具类
+ * 连接MySQL数据库
  * 
  * @author guan
  */

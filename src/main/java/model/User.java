@@ -2,11 +2,10 @@ package model;
 
 /**
  * 用户实体
- * 
- * @author guan
  *
  */
 public class User {
+
     private String userName;
     private String userPassWord;
     private int id;
