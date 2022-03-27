@@ -24,7 +24,7 @@ public class loginui extends JFrame {
     private TextFieldUsername usernameField = new TextFieldUsername();
     private TextFieldPassword passwordField = new TextFieldPassword();
 
-    public int loginFlag = 0; // 登录节流阀
+    public static int loginFlag = 0; // 登录节流阀
 
     /**
      * new loginui();

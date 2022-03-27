@@ -1,4 +1,4 @@
-package maptesttool;
+package view;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,13 +20,15 @@ import org.geotools.styling.SLD;
 import org.geotools.styling.Style;
 import org.geotools.swing.JMapFrame;
 import org.geotools.swing.data.JFileDataStoreChooser;
-// 下面是用户界面
-import view.*;
+// 一些原来maptesttool的方法类
+import util.GeoTiffLab;
+import util.ImageLab;
+import util.ReadText;
+import util.SelectionLab;
 
 public class MapTestTool {
-    // int inputFlag = 0; // 输入上报区域的节流阀
-    int[] cntRecord = { 0, 0 }; // 记录错误条序数，与记录总值
-    String selectString = "";
+
+    private int[] cntRecord = { 0, 0 }; // 记录错误条序数，与记录总值
     public final static JTextArea inputPositionArea = new JTextArea(); // 这里位置放到外面为了监听字符串改变
 
     public MapTestTool() {
@@ -708,13 +710,11 @@ public class MapTestTool {
         ActionListener listenUserListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == item15) {
-                    loginui log = new loginui();
-                    if (log.loginFlag == 1) {
-                        // TODO 渲染到swing中
-                    }
+                    new loginui();
                 }
                 if (e.getSource() == item16) {
                     new historyui();
+
                 }
                 if (e.getSource() == item17) {
                     new historyui();

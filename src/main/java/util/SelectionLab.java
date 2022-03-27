@@ -1,4 +1,4 @@
-package maptesttool;
+package util;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -43,6 +43,8 @@ import org.opengis.feature.type.GeometryDescriptor;
 import org.opengis.filter.Filter;
 import org.opengis.filter.FilterFactory2;
 import org.opengis.filter.identity.FeatureId;
+
+import view.MapTestTool;
 
 /**
  * In this example we create a map tool to select a feature clicked with the
