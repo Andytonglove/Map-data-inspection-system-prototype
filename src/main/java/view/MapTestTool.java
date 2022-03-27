@@ -541,7 +541,7 @@ public class MapTestTool {
 
                     // 读取文本类型文件
                     try {
-                        ReadText tmrReadText = new ReadText(fileName);
+                        ReadTextLab tmrReadText = new ReadTextLab(fileName);
                         tmrReadText.setVisible(true);
                     } catch (IOException e1) {
                         e1.printStackTrace();

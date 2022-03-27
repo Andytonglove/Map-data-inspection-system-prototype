@@ -7,12 +7,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class ReadText extends JFrame {
+public class ReadTextLab extends JFrame {
 
     private JTextArea textAreaOutput;
     private JScrollPane jsp;
 
-    public ReadText(String filepath) throws IOException {
+    public ReadTextLab(String filepath) throws IOException {
         super("文本类型文件读取");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout());

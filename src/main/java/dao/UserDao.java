@@ -23,6 +23,7 @@ public class UserDao {
      * @throws Exception
      */
     public User login(Connection connection, User user) throws Exception {
+
         User resultUser = null;
         String sql = "select * from user where userName=? and password=?";
         PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -49,6 +50,7 @@ public class UserDao {
      * @throws Exception
      */
     public int register(Connection connection, User user) throws Exception {
+
         String sql = "INSERT INTO user (username, password) VALUES (?, ?)";
 
         String sqlselect = "select * from user where userName=?"; // 看看是否有这个用户名重复
