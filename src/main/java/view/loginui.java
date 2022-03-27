@@ -24,8 +24,6 @@ public class loginui extends JFrame {
     private TextFieldUsername usernameField = new TextFieldUsername();
     private TextFieldPassword passwordField = new TextFieldPassword();
 
-    public static int loginFlag = 0; // 登录节流阀
-
     /**
      * new loginui();
      */
@@ -42,6 +40,7 @@ public class loginui extends JFrame {
 
         this.add(mainJPanel);
         this.pack();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
         this.toFront();
 
@@ -265,14 +264,17 @@ public class loginui extends JFrame {
             connection = dbUtil.getConnection();
             User currentUser = userDao.login(connection, user);
             if (currentUser != null) {
-                toaster.success("登录成功!登陆界面将在3s后关闭~");
-                loginFlag = 1;
+                toaster.success("登录成功!请等待登陆界面将在2s后关闭~");
+                MapTestTool.loginFlag = 1;
+                MapTestTool.menu5.setText("已登录用户:" + currentUser.getUserName()); // 映射到上方
+                MapTestTool.menu5.setForeground(new Color(0, 188, 252));
+
                 // 延时3s关闭窗口
                 new Timer().schedule(new TimerTask() {
                     public void run() {
                         dispose();
                     }
-                }, 3000);
+                }, 2500);
             } else {
                 toaster.error("用户名或密码错误!如果您还没有注册,您需要先进行注册!");
             }

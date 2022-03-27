@@ -1,4 +1,4 @@
-package util;
+package view;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -43,8 +43,6 @@ import org.opengis.feature.type.GeometryDescriptor;
 import org.opengis.filter.Filter;
 import org.opengis.filter.FilterFactory2;
 import org.opengis.filter.identity.FeatureId;
-
-import view.MapTestTool;
 
 /**
  * In this example we create a map tool to select a feature clicked with the
@@ -179,7 +177,7 @@ public class SelectionLab {
 
         System.out.println("Mouse click at: " + ev.getWorldPos());
         selectPositionString = ev.getWorldPos().toString();
-        MapTestTool.inputPositionArea.setText(SelectionLab.selectPositionString);
+        MapTestTool.inputPositionArea.setText(SelectionLab.selectPositionString); // 设置位置内容
 
         /*
          * Construct a 5x5 pixel rectangle centred on the mouse click position

@@ -20,16 +20,15 @@ import org.geotools.styling.SLD;
 import org.geotools.styling.Style;
 import org.geotools.swing.JMapFrame;
 import org.geotools.swing.data.JFileDataStoreChooser;
-// 一些原来maptesttool的方法类
-import util.GeoTiffLab;
-import util.ImageLab;
-import util.ReadText;
-import util.SelectionLab;
 
 public class MapTestTool {
 
     private int[] cntRecord = { 0, 0 }; // 记录错误条序数，与记录总值
     public final static JTextArea inputPositionArea = new JTextArea(); // 这里位置放到外面为了监听字符串改变
+    public static int loginFlag = 0; // 登录节流阀
+
+    // 公共组件
+    public static JMenu menu5 = new JMenu("用户(离线)"); // 用户相关
 
     public MapTestTool() {
         JFrame jf = new JFrame("地图数据检查系统原型");
@@ -73,7 +72,7 @@ public class MapTestTool {
         JMenu menu2 = new JMenu("错误标注");
         JMenu menu3 = new JMenu("错误查询");
         JMenu menu4 = new JMenu("帮助");
-        JMenu menu5 = new JMenu("用户"); // 用户相关
+        menu5.setForeground(new Color(247, 9, 9)); // 用户
         menubar1.add(menu1);
         menubar1.add(menu2);
         menubar1.add(menu3);
@@ -713,11 +712,20 @@ public class MapTestTool {
                     new loginui();
                 }
                 if (e.getSource() == item16) {
-                    new historyui();
-
+                    if (loginFlag == 1) {
+                        new historyui();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "请您先登陆账号，才能进行用户管理！", "未登录", JOptionPane.PLAIN_MESSAGE,
+                                imageIcon_menu);
+                    }
                 }
                 if (e.getSource() == item17) {
-                    new historyui();
+                    if (loginFlag == 1) {
+                        new historyui();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "请您先登陆账号，再查看用户操作记录！", "未登录", JOptionPane.PLAIN_MESSAGE,
+                                imageIcon_menu);
+                    }
                 }
 
                 // String openWebString = dir + "\\src\\main\\web\\index.html";

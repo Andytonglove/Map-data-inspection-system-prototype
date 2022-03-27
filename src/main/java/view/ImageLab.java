@@ -1,5 +1,6 @@
-package util;
+package view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +15,13 @@ import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.coverage.grid.io.AbstractGridFormat;
 import org.geotools.coverage.grid.io.GridCoverage2DReader;
 import org.geotools.coverage.grid.io.GridFormatFinder;
+import org.geotools.data.FileDataStore;
+import org.geotools.data.FileDataStoreFinder;
 import org.geotools.data.Parameter;
+import org.geotools.data.simple.SimpleFeatureSource;
 import org.geotools.factory.CommonFactoryFinder;
 import org.geotools.gce.geotiff.GeoTiffFormat;
+import org.geotools.map.FeatureLayer;
 import org.geotools.map.GridReaderLayer;
 import org.geotools.map.Layer;
 import org.geotools.map.MapContent;
@@ -38,7 +43,7 @@ import org.geotools.util.factory.Hints;
 import org.opengis.filter.FilterFactory2;
 import org.opengis.style.ContrastMethod;
 
-public class GeoTiffLab {
+public class ImageLab {
 
     private StyleFactory sf = CommonFactoryFinder.getStyleFactory();
     private FilterFactory2 ff = CommonFactoryFinder.getFilterFactory2();
@@ -46,7 +51,17 @@ public class GeoTiffLab {
     private JMapFrame frame;
     private GridCoverage2DReader reader;
 
-    public String getTiffLayersAndDisplay() throws Exception {
+    // public static void main(String[] args) throws Exception {
+    // ImageLab me = new ImageLab();
+    // me.getLayersAndDisplay(); // 这个函数本是private方法，改到跨类调用
+    // }
+
+    /**
+     * Prompts the user for a GeoTIFF file and a Shapefile and passes them to the
+     * displayLayers
+     * method
+     */
+    public void getLayersAndDisplay() throws Exception {
         List<Parameter<?>> list = new ArrayList<>();
         list.add(
                 new Parameter<>(
@@ -55,21 +70,32 @@ public class GeoTiffLab {
                         "Image",
                         "GeoTiff or World+Image to display as basemap",
                         new KVP(Parameter.EXT, "tif", Parameter.EXT, "jpg")));
+        list.add(
+                new Parameter<>(
+                        "shape",
+                        File.class,
+                        "Shapefile",
+                        "Shapefile contents to display",
+                        new KVP(Parameter.EXT, "shp")));
 
-        JParameterListWizard wizard = new JParameterListWizard("Display GeoTiff", "Fill in with the layers of tif",
-                list);
+        JParameterListWizard wizard = new JParameterListWizard("Image Lab", "Fill in the following layers", list);
         int finish = wizard.showModalDialog();
 
         if (finish != JWizard.FINISH) {
             System.exit(0);
         }
         File imageFile = (File) wizard.getConnectionParameters().get("image");
-        String filePath = displayTiffLayers(imageFile);
-
-        return filePath;
+        File shapeFile = (File) wizard.getConnectionParameters().get("shape");
+        displayLayers(imageFile, shapeFile);
     }
 
-    public String displayTiffLayers(File rasterFile) throws Exception {
+    /**
+     * Displays a GeoTIFF file overlaid with a Shapefile
+     *
+     * @param rasterFile the GeoTIFF file
+     * @param shpFile    the Shapefile
+     */
+    private void displayLayers(File rasterFile, File shpFile) throws Exception {
         AbstractGridFormat format = GridFormatFinder.findFormat(rasterFile);
         // this is a bit hacky but does make more geotiffs work
         Hints hints = new Hints();
@@ -83,12 +109,22 @@ public class GeoTiffLab {
         // data from the first image band
         Style rasterStyle = createGreyscaleStyle(1);
 
+        // Connect to the shapefile
+        FileDataStore dataStore = FileDataStoreFinder.getDataStore(shpFile);
+        SimpleFeatureSource shapefileSource = dataStore.getFeatureSource();
+
+        // Create a basic style with yellow lines and no fill
+        Style shpStyle = SLD.createPolygonStyle(Color.YELLOW, null, 0.0f);
+
         // Set up a MapContent with the two layers
         final MapContent map = new MapContent();
-        map.setTitle("Disaplay GeoTiff");
+        map.setTitle("ImageLab地图显示");
 
         Layer rasterLayer = new GridReaderLayer(reader, rasterStyle);
         map.addLayer(rasterLayer);
+
+        Layer shpLayer = new FeatureLayer(shapefileSource, shpStyle);
+        map.addLayer(shpLayer);
 
         // Create a JMapFrame with a menu to choose the display style for the
         frame = new JMapFrame(map);
@@ -97,8 +133,7 @@ public class GeoTiffLab {
         // frame.enableTool(JMapFrame.Tool.ZOOM, JMapFrame.Tool.PAN,
         // JMapFrame.Tool.RESET);
         frame.enableToolBar(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 这里加上这一句以销毁窗口！
 
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
@@ -129,10 +164,14 @@ public class GeoTiffLab {
         // Finally display the map frame.
         // When it is closed the app will exit.
         frame.setVisible(true);
-
-        return rasterFile.getName(); // 返回文件名模块，和上一起添加
     }
 
+    /**
+     * Create a Style to display a selected band of the GeoTIFF image as a greyscale
+     * layer
+     *
+     * @return a new Style instance to render the image in greyscale
+     */
     private Style createGreyscaleStyle() {
         GridCoverage2D cov = null;
         try {
@@ -160,6 +199,18 @@ public class GeoTiffLab {
         return null;
     }
 
+    /**
+     * Create a Style to display the specified band of the GeoTIFF image as a
+     * greyscale layer.
+     *
+     * <p>
+     * This method is a helper for createGreyScale() and is also called directly by
+     * the
+     * displayLayers() method when the application first starts.
+     *
+     * @param band the image band to use for the greyscale display
+     * @return a new Style instance to render the image in greyscale
+     */
     private Style createGreyscaleStyle(int band) {
         ContrastEnhancement ce = sf.contrastEnhancement(ff.literal(1.0), ContrastMethod.NORMALIZE);
         SelectedChannelType sct = sf.createSelectedChannelType(String.valueOf(band), ce);
@@ -171,6 +222,18 @@ public class GeoTiffLab {
         return SLD.wrapSymbolizers(sym);
     }
 
+    /*
+     * This method examines the names of the sample dimensions in the provided
+     * coverage looking for
+     * "red...", "green..." and "blue..." (case insensitive match). If these names
+     * are not found it
+     * uses bands 1, 2, and 3 for the red, green and blue channels. It then sets up
+     * a raster
+     * symbolizer and returns this wrapped in a Style.
+     *
+     * @return a new Style object containing a raster symbolizer set up for RGB
+     * image
+     */
     private Style createRGBStyle() {
         GridCoverage2D cov = null;
         try {
@@ -224,5 +287,4 @@ public class GeoTiffLab {
 
         return SLD.wrapSymbolizers(sym);
     }
-
 }

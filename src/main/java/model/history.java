@@ -28,6 +28,7 @@ public class history {
         this.id = id;
     }
 
+    // 字符串与对象的互相转换方法，稍显多余
     public String historyToString() {
         String stringInfo = String.join(this.userName, "&", this.mapname, "&", this.position, "&", this.type, "&",
                 this.discription, "&", Integer.toString(this.id));
