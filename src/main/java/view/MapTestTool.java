@@ -709,11 +709,11 @@ public class MapTestTool {
         ActionListener listenUserListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == item15) {
-                    new loginui();
+                    new LoginUI();
                 }
                 if (e.getSource() == item16) {
                     if (loginFlag == 1) {
-                        new historyui();
+                        new HistoryUI();
                     } else {
                         JOptionPane.showMessageDialog(null, "请您先登陆账号，才能进行用户管理！", "未登录", JOptionPane.PLAIN_MESSAGE,
                                 imageIcon_menu);
@@ -721,7 +721,7 @@ public class MapTestTool {
                 }
                 if (e.getSource() == item17) {
                     if (loginFlag == 1) {
-                        new historyui();
+                        new HistoryUI();
                     } else {
                         JOptionPane.showMessageDialog(null, "请您先登陆账号，再查看用户操作记录！", "未登录", JOptionPane.PLAIN_MESSAGE,
                                 imageIcon_menu);

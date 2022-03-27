@@ -1,5 +1,5 @@
 package view;
 
-public class historyui {
+public class HistoryUI {
 
 }

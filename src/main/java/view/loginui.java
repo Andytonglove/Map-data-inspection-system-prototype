@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class loginui extends JFrame {
+public class LoginUI extends JFrame {
 
     private final Toaster toaster;
 
@@ -28,7 +28,7 @@ public class loginui extends JFrame {
      * new loginui();
      */
 
-    public loginui() {
+    public LoginUI() {
 
         addLogo(mainJPanel);
         addSeparator(mainJPanel);
