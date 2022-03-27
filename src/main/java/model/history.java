@@ -5,7 +5,7 @@ package model;
  * 
  */
 
-public class history {
+public class History {
 
     private String userName;
     private String mapname;
@@ -14,11 +14,11 @@ public class history {
     private String discription;
     private int id;
 
-    public history() {
+    public History() {
         super();
     }
 
-    public history(String userName, String mapname, String position, String type, String discription, int id) {
+    public History(String userName, String mapname, String position, String type, String discription, int id) {
         super();
         this.userName = userName;
         this.mapname = mapname;

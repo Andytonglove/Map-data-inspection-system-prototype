@@ -67,15 +67,4 @@ public class UserDao {
         return cnt;
     }
 
-    /**
-     * 地图错误上报入库
-     * 
-     * @param connection
-     * @param user
-     * @param errorString
-     * @throws Exception
-     */
-    public void upload(Connection connection, User user, String errorString) throws Exception {
-        // TODO 上传数据
-    }
 }
