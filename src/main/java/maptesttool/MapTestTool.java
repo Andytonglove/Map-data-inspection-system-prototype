@@ -708,7 +708,7 @@ public class MapTestTool {
         ActionListener listenUserListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == item15) {
-                    login log = new login();
+                    loginui log = new loginui();
                     if (log.loginFlag == 1) {
                         // TODO 渲染到swing中
                     }
