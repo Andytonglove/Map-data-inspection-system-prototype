@@ -1,4 +1,5 @@
-package view;
+package maptesttool;
+// package view;
 
 import javax.swing.*;
 

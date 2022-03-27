@@ -1,6 +1,7 @@
 ## What's this
 
-This is a Java web×swing project: Map data inspection system prototype(`地图数据质检系统原型`). You can see pre-project in [MapTestTool](https://github.com/Andytonglove/MapTestTool) or [maptesttool-maven](https://github.com/Andytonglove/maptesttool-maven), and this project is built on that.
+This is a Java web×swing project: Map data inspection system prototype(`地图数据质检系统原型`). You can see pre-project in [MapTestTool](https://github.com/Andytonglove/MapTestTool) or [maptesttool-maven](https://github.com/Andytonglove/maptesttool-maven), and this project is built on that. 
+Map data inspection system prototype support you to login and it can record your operation history in this system (including your map viewing and error reporting records) and upload it to the database (using MySQL) to realize LAN sharing. Later, it may be transformed into a Java Web project and deployed with Tomcat in test.
 
 ## Requirement
 
