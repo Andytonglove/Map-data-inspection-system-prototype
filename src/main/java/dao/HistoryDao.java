@@ -25,7 +25,7 @@ public class HistoryDao {
      */
     public int upload(Connection connection, History his) throws Exception {
         // 上传数据
-        String sql = "INSERT INTO user (username, mapname, position, type, discription) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO history (username, mapname, position, type, discription) VALUES (?, ?, ?, ?, ?)";
 
         PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pstmt.setString(1, his.getUserName());
@@ -48,12 +48,12 @@ public class HistoryDao {
      */
     public ArrayList<History> searchFromName(Connection connection, History his) throws Exception {
         // 数据库数据查询
-        String sqlselect = "select * from user where userName=?";
+        String sqlselect = "select * from history where userName=?";
         PreparedStatement pstmt = connection.prepareStatement(sqlselect);
         pstmt.setString(1, his.getUserName());
         ResultSet rs = pstmt.executeQuery();
 
-        String sqlcnt = "SELECT COUNT(*) AS count1 FROM user where userName=?"; // 统计数量
+        String sqlcnt = "SELECT COUNT(*) AS count1 FROM history where userName=?"; // 统计数量
         PreparedStatement pstmt_cnt = connection.prepareStatement(sqlcnt);
         pstmt_cnt.setString(1, his.getUserName());
         ResultSet rs_cnt = pstmt.executeQuery();

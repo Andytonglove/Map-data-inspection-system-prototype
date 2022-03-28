@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.*;
+import java.sql.Connection;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import javax.swing.*;
@@ -20,12 +21,19 @@ import org.geotools.styling.SLD;
 import org.geotools.styling.Style;
 import org.geotools.swing.JMapFrame;
 import org.geotools.swing.data.JFileDataStoreChooser;
+// 其他数据库操作类
+import dao.HistoryDao;
+import model.History;
+import util.DbUtil;
 
 public class MapTestTool {
 
     private int[] cntRecord = { 0, 0 }; // 记录错误条序数，与记录总值
     public final static JTextArea inputPositionArea = new JTextArea(); // 这里位置放到外面为了监听字符串改变
     public static int loginFlag = 0; // 登录节流阀
+    public static String loginUserName = "";
+    public static String fileNameString = "";
+    public static JTextArea textAreaTopArea = new JTextArea();
 
     // 公共组件
     public static JMenu menu5 = new JMenu("用户(离线)"); // 用户相关
@@ -144,7 +152,7 @@ public class MapTestTool {
         // 下面是主体首页页面部分
 
         // 左侧上部切换窗口
-        final JTextArea textAreaTopArea = new JTextArea();
+        // final JTextArea textAreaTopArea = new JTextArea(); // 移到外部初始化
         p.add(textAreaTopArea);
         textAreaTopArea.setSize(330, 450);
         textAreaTopArea.setBounds(10, 10, 450, 30);
@@ -199,6 +207,7 @@ public class MapTestTool {
                     }
                     String shpName = file.getName();
                     textAreaTopArea.setText("数据文件名：" + shpName);
+                    fileNameString = shpName;
                     FileDataStore store;
                     try {
                         store = FileDataStoreFinder.getDataStore(file);
@@ -235,6 +244,7 @@ public class MapTestTool {
                     try {
                         String tifPath = me.getTiffLayersAndDisplay();
                         textAreaTopArea.setText("数据文件名：" + tifPath);
+                        fileNameString = tifPath;
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
@@ -475,6 +485,7 @@ public class MapTestTool {
                     System.out.println(commitContent);
                     // 保存到文件，之后可能考虑用JSON形式储存上报的错误，目前先用txt
                     MyWriteFileItems("Errors.txt", commitContent);
+                    uploadHistoryWrite2db(commitContent); // 在本地存储之外进行数据库存储
 
                     // 完成后清空输入框
                     try {
@@ -538,6 +549,7 @@ public class MapTestTool {
                     File file = openFileChooser.getSelectedFile();
                     String fileName = file.getName();
                     textAreaTopArea.setText("数据文件名：" + fileName);
+                    fileNameString = fileName;
 
                     // 读取文本类型文件
                     try {
@@ -850,6 +862,35 @@ public class MapTestTool {
             // fw.close();
         } catch (Exception eee) {
             eee.printStackTrace();
+        }
+    }
+
+    /**
+     * 历史记录上报入库
+     * 错误上报保存到数据库中函数，测试通过！
+     * 
+     * @param historysString 历史记录字符串
+     * @throws Exception
+     */
+    public static void uploadHistoryWrite2db(String historysString) {
+        if (loginFlag == 1) {
+            Connection connection = null;
+            DbUtil dbUtil = new DbUtil();
+            HistoryDao historyDao = new HistoryDao();
+            History his = new History(loginUserName, fileNameString, historysString.split("&")[0],
+                    historysString.split("&")[1], historysString.split("&")[2]);
+            try {
+                connection = dbUtil.getConnection();
+                int cnt = historyDao.upload(connection, his);
+                if (cnt > 0) {
+                    JOptionPane.showMessageDialog(null, "操作记录上传数据库成功!", "上传", JOptionPane.PLAIN_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "操作记录上传数据库失败!", "上传", JOptionPane.PLAIN_MESSAGE);
+                }
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
     }
 

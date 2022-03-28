@@ -3,3 +3,6 @@
 hello&type&world
 1&23&4
 DirectPosition2D[60.81911262798636, -75.98683671658358]&写错了&from lht
+DirectPosition2D[99.52218430034134, 61.6240847851229]&地图位置点类型错误&第一次测试
+test1&test2&test3
+DirectPosition2D[113.65187713310581, 63.467088198092185]&11&22test

@@ -28,6 +28,15 @@ public class History {
         this.id = id;
     }
 
+    public History(String userName, String mapname, String position, String type, String discription) {
+        super();
+        this.userName = userName;
+        this.mapname = mapname;
+        this.position = position;
+        this.type = type;
+        this.discription = discription;
+    }
+
     // 字符串与对象的互相转换方法，稍显多余
     public String historyToString() {
         String stringInfo = String.join(this.userName, "&", this.mapname, "&", this.position, "&", this.type, "&",

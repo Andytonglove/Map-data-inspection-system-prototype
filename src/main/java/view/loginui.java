@@ -267,6 +267,7 @@ public class LoginUI extends JFrame {
                 toaster.success("登录成功!请等待登陆界面将在2s后关闭~");
                 MapTestTool.loginFlag = 1;
                 MapTestTool.menu5.setText("已登录用户:" + currentUser.getUserName()); // 映射到上方
+                MapTestTool.loginUserName = currentUser.getUserName();
                 MapTestTool.menu5.setForeground(new Color(0, 188, 252));
 
                 // 延时3s关闭窗口
