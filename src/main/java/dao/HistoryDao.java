@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import model.History;
 
@@ -42,25 +43,28 @@ public class HistoryDao {
      * 
      * @param connection
      * @param his
-     * @return
+     * @return ArrayList<History>
      * @throws Exception
      */
-    public void searchFromName(Connection connection, History his) throws Exception {
+    public ArrayList<History> searchFromName(Connection connection, History his) throws Exception {
         // 数据库数据查询
         String sqlselect = "select * from user where userName=?";
         PreparedStatement pstmt = connection.prepareStatement(sqlselect);
         pstmt.setString(1, his.getUserName());
         ResultSet rs = pstmt.executeQuery();
 
-        String sqlcnt = "SELECT COUNT(*) FROM user where userName=?"; // 统计数量
+        String sqlcnt = "SELECT COUNT(*) AS count1 FROM user where userName=?"; // 统计数量
         PreparedStatement pstmt_cnt = connection.prepareStatement(sqlcnt);
         pstmt_cnt.setString(1, his.getUserName());
         ResultSet rs_cnt = pstmt.executeQuery();
-        // TODO
-        int cnt = 10;
-        History resultHis[] = new History[cnt];
-
-        for (int i = 0; rs.next(); i++) {
+        int cntString = 0;
+        while (rs.next()) {
+            cntString = rs_cnt.getInt("count1");
+        }
+        // 接下来循环存入查询结果
+        ArrayList<History> resultList = new ArrayList<History>();
+        History resultHis[] = new History[cntString];
+        for (int i = 0; i < cntString; i++) {
             resultHis[i] = new History();
             resultHis[i].setId(rs.getInt("id"));
             resultHis[i].setUserName(rs.getString("userName"));
@@ -68,6 +72,9 @@ public class HistoryDao {
             resultHis[i].setposition(rs.getString("position"));
             resultHis[i].settype(rs.getString("type"));
             resultHis[i].setdiscription(rs.getString("discription"));
+
+            resultList.add(resultHis[i]); // 存入array
         }
+        return resultList;
     }
 }
