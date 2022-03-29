@@ -38,7 +38,7 @@ public class login extends JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // windowsUI
         } catch (Exception e) {
             System.out.println("工具外观生成出现错误！");
-            System.exit(0);
+            // System.exit(0);
         }
 
         String dir = System.getProperty("user.dir");

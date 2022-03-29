@@ -35,6 +35,7 @@ public class MapTestTool {
     public static String loginUserName = "";
     public static String fileNameString = "";
     public static JTextArea textAreaTopArea = new JTextArea();
+    public static JButton searchButton = new JButton("搜索");
 
     // 公共组件
     public static JMenu menu5 = new JMenu("用户(离线)"); // 用户相关
@@ -367,7 +368,7 @@ public class MapTestTool {
         });
 
         // 若干查找按钮
-        JButton searchButton = new JButton("搜索");
+        // JButton searchButton = new JButton("搜索");
         p.add(searchButton);
         searchButton.setBounds(450 + widthR + 225 + 25, heightR + deltaHr * 2 + heightBox * 3 + 45, 70, 25);
         searchButton.setName("搜索");
@@ -407,7 +408,7 @@ public class MapTestTool {
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                 }
 
-                // 在数据库中通过关键词搜索用户操作记录，模糊查询 TODO
+                // 在数据库中通过关键词搜索用户操作记录，模糊查询
                 ArrayList<String> his4dbkeywordString = searchHistoryfromDBbyKeyWord(searchContent);
                 String searchHistoryString = "用户 " + loginUserName + " 的远端数据库相关记录:\n\n";
 
@@ -837,7 +838,7 @@ public class MapTestTool {
                 if (e.getSource() == item14)
                     textArea.setText("即将访问本项目相关信息！\n");
                 if (e.getSource() == item15)
-                    textArea.setText("正在进行用户登录！\n");
+                    textArea.setText("正在进行用户登录！连接到用户数据库！\n");
                 if (e.getSource() == item16)
                     textArea.setText("即将进行用户管理服务！\n");
                 if (e.getSource() == item17)

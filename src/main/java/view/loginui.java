@@ -89,7 +89,8 @@ public class LoginUI extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.exit(0);
+                // System.exit(0);
+                dispose(); // 改成销毁窗口
             }
         });
 
@@ -269,6 +270,7 @@ public class LoginUI extends JFrame {
                 MapTestTool.menu5.setText("已登录用户:" + currentUser.getUserName()); // 映射到上方
                 MapTestTool.loginUserName = currentUser.getUserName();
                 MapTestTool.menu5.setForeground(new Color(0, 188, 252));
+                MapTestTool.searchButton.setForeground(new Color(0, 188, 252));
 
                 // 延时3s关闭窗口
                 new Timer().schedule(new TimerTask() {
