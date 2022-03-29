@@ -407,7 +407,7 @@ public class MapTestTool {
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                 }
 
-                // TODO 在数据库中搜索用户操作记录，这里编号是int不好取，需要解决
+                // 在数据库中搜索用户操作记录，这里注意join的用法，用户管理界面可以渲染更漂亮一些
                 ArrayList<String> his4dbString = searchHistoryfromDBbyName(searchContent);
                 String searchHistorysString = "用户 " + loginUserName + " 的远端数据库相关记录:\n\n";
 

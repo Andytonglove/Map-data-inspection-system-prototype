@@ -31,7 +31,7 @@ public class UserDao {
         pstmt.setString(2, user.getUserPassWord());
         ResultSet rs = pstmt.executeQuery();
 
-        // FIXME 这里直接获取密码不太好，后续可以考虑MD5加密
+        // 这里直接获取密码不太好，后续可以考虑做底层MD5加密
         if (rs.next()) {
             resultUser = new User();
             resultUser.setId(rs.getInt("id"));
