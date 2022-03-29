@@ -7,6 +7,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.*;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import javax.swing.*;
@@ -405,8 +406,9 @@ public class MapTestTool {
                     JOptionPane.showMessageDialog(null, "您的相关搜索结果一共有" + ErrorsCnt[1] + "条，您可以继续添加！", "相关搜索结果统计",
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                 }
-
-                searchHistoryfromDBbyName(searchContent); // TODO 搜索功能
+                // TODO 在数据库中搜索用户操作记录
+                ArrayList<History> his4db = searchHistoryfromDBbyName(searchContent);
+                System.out.println(his4db);
             }
         });
 
@@ -904,20 +906,23 @@ public class MapTestTool {
      * @param historysNameString 历史记录用户名字符串
      * @throws Exception
      */
-    public static void searchHistoryfromDBbyName(String historysNameString) {
+    public static ArrayList<History> searchHistoryfromDBbyName(String historysNameString) {
         if (loginFlag == 1) {
             Connection connection = null;
             DbUtil dbUtil = new DbUtil();
             HistoryDao historyDao = new HistoryDao();
             History his = new History();
             his.setUserName(historysNameString);
+            ArrayList<History> his4db = new ArrayList<History>();
             try {
                 connection = dbUtil.getConnection();
-                historyDao.searchFromName(connection, his);
+                his4db = historyDao.searchFromName(connection, his);
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
+            return his4db;
         }
+        return null;
     }
 
     public static void main(String args[]) {
