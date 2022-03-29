@@ -406,7 +406,7 @@ public class MapTestTool {
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                 }
 
-                searchHistoryfromDBbyName(searchContent);
+                searchHistoryfromDBbyName(searchContent); // TODO 搜索功能
             }
         });
 
@@ -426,6 +426,7 @@ public class MapTestTool {
         p.add(lastsearchButton);
         lastsearchButton.setBounds(450 + widthR + 260, heightR + deltaHr * 2 + heightBox * 3 + 90, 60, 25);
 
+        // 搜索相关按钮功能监听，非搜索
         ActionListener searchButtonSListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == firstsearchButton) {
@@ -613,7 +614,7 @@ public class MapTestTool {
                         Desktop.getDesktop().open(file); // 启动已在本机桌面上注册的关联应用程序，打开文件.
                     } catch (Exception e2) {
                         // 异常处理
-                        JOptionPane.showMessageDialog(null, "错误文件未生成或未找到，请重新生成！", "错误", JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.showMessageDialog(null, "错误本地文件未生成或未找到，请重新生成！", "错误", JOptionPane.PLAIN_MESSAGE,
                                 imageIcon_menu);
                         System.err.println(e2);
                     }
@@ -645,7 +646,7 @@ public class MapTestTool {
                         Desktop.getDesktop().open(file);
                     } catch (Exception e2) {
                         // 异常处理
-                        JOptionPane.showMessageDialog(null, "错误记录文件未生成或未找到，请重新生成！", "错误", JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.showMessageDialog(null, "错误本地记录文件未生成或未找到，请重新生成！", "错误", JOptionPane.PLAIN_MESSAGE,
                                 imageIcon_menu);
                         System.err.println(e2);
                     }
@@ -885,9 +886,9 @@ public class MapTestTool {
                 connection = dbUtil.getConnection();
                 int cnt = historyDao.upload(connection, his);
                 if (cnt > 0) {
-                    JOptionPane.showMessageDialog(null, "操作记录上传数据库成功!", "上传", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "用户操作记录上传数据库成功!", "用户上报上传", JOptionPane.PLAIN_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "操作记录上传数据库失败!", "上传", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "用户操作记录上传数据库失败!", "用户上报上传", JOptionPane.PLAIN_MESSAGE);
                 }
 
             } catch (Exception e1) {
