@@ -405,6 +405,8 @@ public class MapTestTool {
                     JOptionPane.showMessageDialog(null, "您的相关搜索结果一共有" + ErrorsCnt[1] + "条，您可以继续添加！", "相关搜索结果统计",
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                 }
+
+                searchHistoryfromDBbyName(searchContent);
             }
         });
 
@@ -888,6 +890,29 @@ public class MapTestTool {
                     JOptionPane.showMessageDialog(null, "操作记录上传数据库失败!", "上传", JOptionPane.PLAIN_MESSAGE);
                 }
 
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 历史记录搜索
+     * 错误上报通过名字在数据库中完成搜索
+     * 
+     * @param historysNameString 历史记录用户名字符串
+     * @throws Exception
+     */
+    public static void searchHistoryfromDBbyName(String historysNameString) {
+        if (loginFlag == 1) {
+            Connection connection = null;
+            DbUtil dbUtil = new DbUtil();
+            HistoryDao historyDao = new HistoryDao();
+            History his = new History();
+            his.setUserName(historysNameString);
+            try {
+                connection = dbUtil.getConnection();
+                historyDao.searchFromName(connection, his);
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
