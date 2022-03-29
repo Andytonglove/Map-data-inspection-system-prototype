@@ -407,8 +407,8 @@ public class MapTestTool {
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                 }
 
-                // 在数据库中通过关键词搜索用户操作记录
-                ArrayList<String> his4dbkeywordString = searchHistoryfromDBbyName(searchContent);
+                // 在数据库中通过关键词搜索用户操作记录，模糊查询 TODO
+                ArrayList<String> his4dbkeywordString = searchHistoryfromDBbyKeyWord(searchContent);
                 String searchHistoryString = "用户 " + loginUserName + " 的远端数据库相关记录:\n\n";
 
                 for (int i = 0; i < his4dbkeywordString.size(); i++) {
