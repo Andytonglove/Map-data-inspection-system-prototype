@@ -407,24 +407,24 @@ public class MapTestTool {
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                 }
 
-                // 在数据库中搜索用户操作记录，这里注意join的用法，用户管理界面可以渲染更漂亮一些
-                ArrayList<String> his4dbString = searchHistoryfromDBbyName(searchContent);
-                String searchHistorysString = "用户 " + loginUserName + " 的远端数据库相关记录:\n\n";
+                // 在数据库中通过关键词搜索用户操作记录
+                ArrayList<String> his4dbkeywordString = searchHistoryfromDBbyName(searchContent);
+                String searchHistoryString = "用户 " + loginUserName + " 的远端数据库相关记录:\n\n";
 
-                for (int i = 0; i < his4dbString.size(); i++) {
-                    System.out.println(his4dbString.get(i));
+                for (int i = 0; i < his4dbkeywordString.size(); i++) {
+                    System.out.println(his4dbkeywordString.get(i));
                     // 字符串格式优化一下
                     String tempHistorysString = String.join("\n",
-                            "用户记录编号:" + his4dbString.get(i).split("&")[0],
-                            "操作地图名称:" + his4dbString.get(i).split("&")[1],
-                            "上报错误位置:" + his4dbString.get(i).split("&")[2],
-                            "上报错误类型:" + his4dbString.get(i).split("&")[3],
-                            "上报错误描述:" + his4dbString.get(i).split("&")[4] + "\n\n");
+                            "用户记录编号:" + his4dbkeywordString.get(i).split("&")[0],
+                            "操作地图名称:" + his4dbkeywordString.get(i).split("&")[1],
+                            "上报错误位置:" + his4dbkeywordString.get(i).split("&")[2],
+                            "上报错误类型:" + his4dbkeywordString.get(i).split("&")[3],
+                            "上报错误描述:" + his4dbkeywordString.get(i).split("&")[4] + "\n\n");
 
                     System.out.println(tempHistorysString);
-                    searchHistorysString += tempHistorysString;
+                    searchHistoryString += tempHistorysString;
                 }
-                JOptionPane.showMessageDialog(null, searchHistorysString, "用户远端数据库相关记录",
+                JOptionPane.showMessageDialog(null, searchHistoryString, "用户远端数据库相关记录",
                         JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
 
             }
@@ -740,7 +740,7 @@ public class MapTestTool {
         });
 
         // 15-17.用户相关登录、管理、操作记录
-        // FIXME 这一块本准备用web前端来处理，java后台，辅以sql；后续平台转Java Web
+        // 这一块本准备用web前端来处理，java后台，辅以sql；后续平台转Java Web，目前主要是swing
         ActionListener listenUserListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == item15) {
@@ -748,6 +748,7 @@ public class MapTestTool {
                 }
                 if (e.getSource() == item16) {
                     if (loginFlag == 1) {
+                        // TODO 用户管理界面
                         new HistoryUI();
                     } else {
                         JOptionPane.showMessageDialog(null, "请您先登陆账号，才能进行用户管理！", "未登录", JOptionPane.PLAIN_MESSAGE,
@@ -756,9 +757,28 @@ public class MapTestTool {
                 }
                 if (e.getSource() == item17) {
                     if (loginFlag == 1) {
-                        new HistoryUI();
+                        // 在数据库中通过用户名搜索用户操作记录，这里注意join的用法，用户管理界面可以渲染更漂亮一些
+                        ArrayList<String> his4dbString = searchHistoryfromDBbyName(loginUserName);
+                        String searchHistorysString = "用户 " + loginUserName + " 的远端数据库相关记录:\n\n";
+
+                        for (int i = 0; i < his4dbString.size(); i++) {
+                            System.out.println(his4dbString.get(i));
+                            // 字符串格式优化一下
+                            String tempHistorysString = String.join("\n",
+                                    "用户记录编号:" + his4dbString.get(i).split("&")[0],
+                                    "操作地图名称:" + his4dbString.get(i).split("&")[1],
+                                    "上报错误位置:" + his4dbString.get(i).split("&")[2],
+                                    "上报错误类型:" + his4dbString.get(i).split("&")[3],
+                                    "上报错误描述:" + his4dbString.get(i).split("&")[4] + "\n\n");
+
+                            System.out.println(tempHistorysString);
+                            searchHistorysString += tempHistorysString;
+                        }
+                        JOptionPane.showMessageDialog(null, searchHistorysString, "用户远端数据库相关记录",
+                                JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                     } else {
-                        JOptionPane.showMessageDialog(null, "请您先登陆账号，再查看用户操作记录！", "未登录", JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.showMessageDialog(null, "请您先登陆账号，再查看用户操作记录！\n或者您可以直接搜索查看!", "未登录",
+                                JOptionPane.PLAIN_MESSAGE,
                                 imageIcon_menu);
                     }
                 }
@@ -937,6 +957,39 @@ public class MapTestTool {
             try {
                 connection = dbUtil.getConnection();
                 his4db = historyDao.searchFromName(connection, his);
+                // 对得到的对象进行处理，返回字符串
+                for (int i = 0; i < his4db.size(); i++) {
+                    String tempHistorysString = String.join("&", Integer.toString(his4db.get(i).getId()),
+                            his4db.get(i).getmapname(), his4db.get(i).getposition(),
+                            his4db.get(i).gettype(), his4db.get(i).getdiscription());
+                    searchHistoryString.add(tempHistorysString);
+                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            return searchHistoryString;
+        }
+        return null;
+    }
+
+    /**
+     * 历史记录搜索
+     * 错误上报通过关键词在数据库中完成搜索
+     * 
+     * @param historysKeywordString 历史记录关键词字符串
+     * @return searchHistoryString 结果字符串
+     * @throws Exception
+     */
+    public static ArrayList<String> searchHistoryfromDBbyKeyWord(String historysKeywordString) {
+        if (loginFlag == 1) {
+            Connection connection = null;
+            DbUtil dbUtil = new DbUtil();
+            HistoryDao historyDao = new HistoryDao();
+            ArrayList<History> his4db = new ArrayList<History>();
+            ArrayList<String> searchHistoryString = new ArrayList<String>();
+            try {
+                connection = dbUtil.getConnection();
+                his4db = historyDao.searchByKeyword(connection, historysKeywordString);
                 // 对得到的对象进行处理，返回字符串
                 for (int i = 0; i < his4db.size(); i++) {
                     String tempHistorysString = String.join("&", Integer.toString(his4db.get(i).getId()),
