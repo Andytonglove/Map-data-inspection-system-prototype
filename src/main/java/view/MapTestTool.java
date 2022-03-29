@@ -393,22 +393,40 @@ public class MapTestTool {
                                         + "错误位置：" + itemSearchString[i].split("&")[0] + "\n"
                                         + "错误类型：" + itemSearchString[i].split("&")[1] + "\n"
                                         + "错误描述：" + itemSearchString[i].split("&")[2],
-                                "相关搜索结果",
+                                "相关本地搜索结果",
                                 JOptionPane.PLAIN_MESSAGE,
                                 imageIcon_menu);
                         cntRecord[0] = i; // 把其赋给全局变量来记录
                     }
                 }
                 if (ErrorsCnt[1] == 0) {
-                    JOptionPane.showMessageDialog(null, "您的搜索结果不存在于记录中，\n您可以自己提交错误记录！", "相关搜索结果统计",
+                    JOptionPane.showMessageDialog(null, "您的搜索结果不存在于本地记录中，\n您可以自己提交错误记录！", "本地相关搜索结果统计",
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                 } else {
-                    JOptionPane.showMessageDialog(null, "您的相关搜索结果一共有" + ErrorsCnt[1] + "条，您可以继续添加！", "相关搜索结果统计",
+                    JOptionPane.showMessageDialog(null, "您的本地相关搜索结果一共有" + ErrorsCnt[1] + "条，您可以继续添加！", "本地相关搜索结果统计",
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                 }
-                // TODO 在数据库中搜索用户操作记录
-                ArrayList<History> his4db = searchHistoryfromDBbyName(searchContent);
-                System.out.println(his4db);
+
+                // TODO 在数据库中搜索用户操作记录，这里编号是int不好取，需要解决
+                ArrayList<String> his4dbString = searchHistoryfromDBbyName(searchContent);
+                String searchHistorysString = "用户 " + loginUserName + " 的远端数据库相关记录:\n\n";
+
+                for (int i = 0; i < his4dbString.size(); i++) {
+                    System.out.println(his4dbString.get(i));
+                    // 字符串格式优化一下
+                    String tempHistorysString = String.join("\n",
+                            "用户记录编号:" + his4dbString.get(i).split("&")[0],
+                            "操作地图名称:" + his4dbString.get(i).split("&")[1],
+                            "上报错误位置:" + his4dbString.get(i).split("&")[2],
+                            "上报错误类型:" + his4dbString.get(i).split("&")[3],
+                            "上报错误描述:" + his4dbString.get(i).split("&")[4] + "\n\n");
+
+                    System.out.println(tempHistorysString);
+                    searchHistorysString += tempHistorysString;
+                }
+                JOptionPane.showMessageDialog(null, searchHistorysString, "用户远端数据库相关记录",
+                        JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
+
             }
         });
 
@@ -904,9 +922,10 @@ public class MapTestTool {
      * 错误上报通过名字在数据库中完成搜索
      * 
      * @param historysNameString 历史记录用户名字符串
+     * @return searchHistoryString 结果字符串
      * @throws Exception
      */
-    public static ArrayList<History> searchHistoryfromDBbyName(String historysNameString) {
+    public static ArrayList<String> searchHistoryfromDBbyName(String historysNameString) {
         if (loginFlag == 1) {
             Connection connection = null;
             DbUtil dbUtil = new DbUtil();
@@ -914,13 +933,21 @@ public class MapTestTool {
             History his = new History();
             his.setUserName(historysNameString);
             ArrayList<History> his4db = new ArrayList<History>();
+            ArrayList<String> searchHistoryString = new ArrayList<String>();
             try {
                 connection = dbUtil.getConnection();
                 his4db = historyDao.searchFromName(connection, his);
+                // 对得到的对象进行处理，返回字符串
+                for (int i = 0; i < his4db.size(); i++) {
+                    String tempHistorysString = String.join("&", Integer.toString(his4db.get(i).getId()),
+                            his4db.get(i).getmapname(), his4db.get(i).getposition(),
+                            his4db.get(i).gettype(), his4db.get(i).getdiscription());
+                    searchHistoryString.add(tempHistorysString);
+                }
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-            return his4db;
+            return searchHistoryString;
         }
         return null;
     }
