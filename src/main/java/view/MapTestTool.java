@@ -742,7 +742,7 @@ public class MapTestTool {
         });
 
         // 15-17.用户相关登录、管理、操作记录
-        // 这一块本准备用web前端来处理，java后台，辅以sql；后续平台转Java Web，目前主要是swing
+        // FIXME 这一块本准备用web前端来处理，java后台，辅以sql；后续平台转Java Web，目前主要是swing
         ActionListener listenUserListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == item15) {
@@ -750,8 +750,7 @@ public class MapTestTool {
                 }
                 if (e.getSource() == item16) {
                     if (loginFlag == 1) {
-                        // TODO 用户管理界面
-                        new HistoryUI();
+                        new HistoryUI(); // 用户管理界面
                     } else {
                         JOptionPane.showMessageDialog(null, "请您先登陆账号，才能进行用户管理！", "未登录", JOptionPane.PLAIN_MESSAGE,
                                 imageIcon_menu);
