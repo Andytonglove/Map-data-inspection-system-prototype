@@ -703,7 +703,7 @@ public class MapTestTool {
             public void actionPerformed(ActionEvent e) {
                 JFrame fr6 = new JFrame();
                 fr6.setTitle("关于项目");
-                fr6.setSize(400, 300);
+                fr6.setSize(400, 330);
                 fr6.setLocationRelativeTo(null);
                 fr6.setResizable(false);
                 fr6.setVisible(true);
@@ -728,13 +728,14 @@ public class MapTestTool {
                 textArea6.setFont(new Font("仿宋", Font.BOLD, 18));
 
                 textArea6.setEditable(false);
-                textArea6.append("本Java程序开发信息：本桌面程序为地图数据检查工具。\n\n"
+                textArea6.append("本Java程序开发信息：本桌面应用为地图数据质检系统。\n\n"
                         + "包括主要内容：\n"
                         + "1、地图数据显示：地图(栅格/矢量)可视化与文本显示；\n"
                         + "2、错误记录管理：位置标识、错误记录保存、错误记录查询。\n"
-                        + "软件版本：Version 1.0\n"
+                        + "3、错误记录管理：支持不同客户端多用户同时使用与记录。\n"
+                        + "软件版本：Version 2.0\n"
                         + "开发设计：关子安\n"
-                        + "开发基于：Java GUI、GeoTools");
+                        + "开发基于：Java GUI、GeoTools…");
                 textArea6.setEditable(false);
 
             }
