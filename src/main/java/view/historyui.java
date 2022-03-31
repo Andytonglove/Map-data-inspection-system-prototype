@@ -120,9 +120,8 @@ public class HistoryUI {
 
                 textArea6.setEditable(false);
                 textArea6.append("用户信息管理\n\n"
-                        + "用户名: \n"
-                        + "密码: \n"
-                        + "id: \n");
+                        + "用户名: " + MapTestTool.loginUserName + "\n"
+                        + "您好！欢迎使用地图数据质检系统！");
                 textArea6.setEditable(false);
 
             }
@@ -146,6 +145,7 @@ public class HistoryUI {
                                 "上报错误类型:" + his4dbString.get(i).split("&")[3],
                                 "上报错误描述:" + his4dbString.get(i).split("&")[4] + "\n\n");
 
+                        // 可以用vector存数据
                         System.out.println(tempHistorysString);
                         searchHistorysString += tempHistorysString;
                     }
