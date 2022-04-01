@@ -106,7 +106,7 @@ public class HistoryUI {
         // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
         hisTable.setPreferredScrollableViewportSize(new Dimension(600, 300));
 
-        // 用户管理
+        // 1、用户管理
         menu1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFrame fr6 = new JFrame();
@@ -143,7 +143,7 @@ public class HistoryUI {
             }
         });
 
-        // 用户名错误上报信息
+        // 2、用户名错误上报信息
         menu2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (MapTestTool.loginFlag == 1) {
@@ -175,7 +175,7 @@ public class HistoryUI {
             }
         });
 
-        // 模糊搜索查找
+        // 3、模糊搜索查找
         menu3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String searchContent = JOptionPane.showInputDialog(jf, "模糊搜索关键词", "在此输入");
@@ -184,15 +184,9 @@ public class HistoryUI {
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                     return;
                 } else {
-                    // 在数据库中通过关键词搜索用户操作记录，模糊查询
+                    // 在数据库中通过关键词搜索用户操作记录，模糊查询，TODO 这里最好渲染到表格里
                     ArrayList<String> his4dbkeywordString = MapTestTool.searchHistoryfromDBbyKeyWord(searchContent);
                     String searchHistoryString = "用户 " + MapTestTool.loginUserName + " 的远端数据库相关记录:\n\n";
-
-                    // TODO 换种方式渲染到界面上面，可以更新表格内容
-                    // for (int i = hisTable.getRowCount() - 1; i >= 0; i--) {
-                    // // 这里清空原来的内容
-                    // hisTable.remove(i);
-                    // }
 
                     for (int i = 0; i < his4dbkeywordString.size(); i++) {
                         System.out.println(his4dbkeywordString.get(i));
@@ -203,8 +197,6 @@ public class HistoryUI {
                                 "上报错误位置:" + his4dbkeywordString.get(i).split("&")[2],
                                 "上报错误类型:" + his4dbkeywordString.get(i).split("&")[3],
                                 "上报错误描述:" + his4dbkeywordString.get(i).split("&")[4] + "\n\n");
-
-                        // 存在一些bug，这里需要把数据重新渲染到表格里面
 
                         System.out.println(tempHistorysString);
                         searchHistoryString += tempHistorysString;
