@@ -124,4 +124,45 @@ public class HistoryDao {
         }
         return resultList;
     }
+
+    /**
+     * 地图错误数据库数据查询：通过用户名查询
+     * 
+     * @param connection
+     * @param his
+     * @return ArrayList<History>
+     * @throws Exception
+     */
+    public ArrayList<History> searchHistoriesFromAll(Connection connection) throws Exception {
+        // 数据库数据查询
+        String sqlcnt = "SELECT COUNT(*) AS 'count1' FROM history"; // 统计数量
+        PreparedStatement pstmt_cnt = connection.prepareStatement(sqlcnt);
+        ResultSet rs_cnt = pstmt_cnt.executeQuery();
+        int cntString = 0;
+        if (rs_cnt.next()) {
+            cntString = rs_cnt.getInt("count1");
+        }
+
+        String sqlselect = "select * from history";
+        PreparedStatement pstmt = connection.prepareStatement(sqlselect);
+        ResultSet rs = pstmt.executeQuery();
+        // 接下来循环存入查询结果
+        ArrayList<History> resultList = new ArrayList<History>();
+        History resultHis[] = new History[cntString];
+        int i = 0;
+        while (rs.next()) {
+            // 注意这里不能用for或者if循环而是用while，next指针向后遍历！
+            resultHis[i] = new History();
+            resultHis[i].setId(rs.getInt("id"));
+            resultHis[i].setUserName(rs.getString("userName"));
+            resultHis[i].setmapname(rs.getString("mapname"));
+            resultHis[i].setposition(rs.getString("position"));
+            resultHis[i].settype(rs.getString("type"));
+            resultHis[i].setdiscription(rs.getString("discription"));
+
+            resultList.add(resultHis[i]); // 存入array
+            i++;
+        }
+        return resultList;
+    }
 }
