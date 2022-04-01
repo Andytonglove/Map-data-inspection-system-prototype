@@ -703,7 +703,7 @@ public class MapTestTool {
             public void actionPerformed(ActionEvent e) {
                 JFrame fr6 = new JFrame();
                 fr6.setTitle("关于项目");
-                fr6.setSize(400, 330);
+                fr6.setSize(400, 350);
                 fr6.setLocationRelativeTo(null);
                 fr6.setResizable(false);
                 fr6.setVisible(true);
@@ -733,6 +733,7 @@ public class MapTestTool {
                         + "1、地图数据显示：地图(栅格/矢量)可视化与文本显示；\n"
                         + "2、错误记录管理：位置标识、错误记录保存、错误记录查询。\n"
                         + "3、错误记录管理：支持不同客户端多用户同时使用与记录。\n"
+                        + "4、支持用户登录：未登录时可离线使用，登陆后可连接数据库与局域网。\n"
                         + "软件版本：Version 2.0\n"
                         + "开发设计：关子安\n"
                         + "开发基于：Java GUI、GeoTools…");

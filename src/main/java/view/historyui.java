@@ -63,7 +63,7 @@ public class HistoryUI {
 
         // 表格初始化函数，转为内部方便调用成员，相当于initTable()
 
-        // 定义二维数组作为表格数据，TODO 这里可以设置自动刷新
+        // 定义二维数组作为表格数据，这里可以设置自动刷新
         ArrayList<String> histories = searchHistoryfromDBAll();
         Object[][] tableData = new String[histories.size()][6];
         for (int i = 0; i < histories.size(); i++) {
@@ -188,10 +188,11 @@ public class HistoryUI {
                     ArrayList<String> his4dbkeywordString = MapTestTool.searchHistoryfromDBbyKeyWord(searchContent);
                     String searchHistoryString = "用户 " + MapTestTool.loginUserName + " 的远端数据库相关记录:\n\n";
 
-                    for (int i = hisTable.getRowCount() - 1; i >= 0; i--) {
-                        // 这里清空原来的内容
-                        hisTable.remove(i);
-                    }
+                    // TODO 换种方式渲染到界面上面，可以更新表格内容
+                    // for (int i = hisTable.getRowCount() - 1; i >= 0; i--) {
+                    // // 这里清空原来的内容
+                    // hisTable.remove(i);
+                    // }
 
                     for (int i = 0; i < his4dbkeywordString.size(); i++) {
                         System.out.println(his4dbkeywordString.get(i));
@@ -208,7 +209,6 @@ public class HistoryUI {
                         System.out.println(tempHistorysString);
                         searchHistoryString += tempHistorysString;
                     }
-                    // TODO 换种方式渲染到界面上面
                     JOptionPane.showMessageDialog(null, searchHistoryString, "用户远端数据库相关记录",
                             JOptionPane.PLAIN_MESSAGE, imageIcon_menu);
                 }
@@ -222,7 +222,7 @@ public class HistoryUI {
     public JTable initTable() {
         // 表格初始化函数
 
-        // 定义二维数组作为表格数据，这里可以设置自动刷新 TODO
+        // 定义二维数组作为表格数据，这里可以设置自动刷新
         ArrayList<String> histories = searchHistoryfromDBAll();
         Object[][] tableData = new String[histories.size()][6];
         for (int i = 0; i < histories.size(); i++) {
