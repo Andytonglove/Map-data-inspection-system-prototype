@@ -204,7 +204,7 @@ public class HistoryUI {
                                 "上报错误类型:" + his4dbkeywordString.get(i).split("&")[3],
                                 "上报错误描述:" + his4dbkeywordString.get(i).split("&")[4] + "\n\n");
 
-                        // tableData.
+                        // 存在一些bug，这里需要把数据重新渲染到表格里面
 
                         System.out.println(tempHistorysString);
                         searchHistoryString += tempHistorysString;
