@@ -6,3 +6,6 @@
 
 # 忽略target文件夹
 target/
+
+# 但不要忽略最终输出jar包
+!map-data-inspection-system.jar
